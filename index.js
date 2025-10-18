@@ -2,8 +2,11 @@ const express = require('express');
 const prisma = require('./db');
 const app = express();
 const PORT = 3000;
+const authRoutes = require('./routes/authRoutes');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/auth', authRoutes);
 app.get('/', (req, res) => {
     res.send('Welcome to the Prisma Express API');
 });
