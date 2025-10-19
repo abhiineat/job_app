@@ -41,3 +41,8 @@ It supports user authentication, job postings, real-time notifications, and cach
 - One `docker-compose.yml` to start the full stack
 
 
+## Live API
+
+The backend is deployed on Railway. You can test the API endpoints here:
+
+**Base URL:** [https://jobapp-production-ab57.up.railway.app](https://jobapp-production-ab57.up.railway.app)
