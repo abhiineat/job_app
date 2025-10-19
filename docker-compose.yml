@@ -5,9 +5,9 @@ services:
     container_name: jobapp_postgres
     restart: always
     environment:
-      POSTGRES_USER: abhii123
-      POSTGRES_PASSWORD: abhiipass
-      POSTGRES_DB: mydb
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5433:5432"
     volumes:
@@ -52,10 +52,10 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: postgresql://abhii123:abhiipass@postgres:5432/mydb?schema=public
-      REDIS_URL: redis://redis:6379
-      JWT_SECRET: supersecretkey
-      KAFKA_BROKER: kafka:29092
+      DATABASE_URL: ${DATABASE_URL}
+      REDIS_URL: ${REDIS_URL}
+      JWT_SECRET: ${JWT_SECRET}
+      KAFKA_BROKER: ${KAFKA_BROKER}
     depends_on:
       - postgres
       - redis
