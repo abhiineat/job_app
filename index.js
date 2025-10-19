@@ -6,7 +6,7 @@ const PORT = 3000;
 const authRoutes = require('./routes/authRoutes');
 const jobRoutes = require('./routes/jobRoutes');
 const { producer } = require('./services/kafka');
-console.log("✅ Producer loaded:", !!producer);
+
 const startConsumer = require('./services/kafkaConsumer');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
