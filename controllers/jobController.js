@@ -26,19 +26,19 @@ exports.createJob = async (req, res) => {
 
     // ✅ Kafka-safe send (skip gracefully in production)
     if (producer) {
-      try {
-        await producer.connect();
-        await producer.send({
-          topic: 'job_events',
-          messages: [{ value: JSON.stringify({ type: 'JOB_CREATED', data: job }) }],
-        });
-        console.log('📤 Kafka message sent:', job.id);
-      } catch (kafkaErr) {
-        console.warn('⚠️ Kafka send skipped:', kafkaErr.message);
+        try {
+          await producer.connect();
+          await producer.send({
+            topic: 'job_events',
+            messages: [{ value: JSON.stringify({ type: 'JOB_CREATED', data: job }) }],
+          });
+          console.log('📤 Kafka message sent:', job.id);
+        } catch (kafkaErr) {
+          console.warn('⚠️ Kafka send skipped:', kafkaErr.message);
+        }
+      } else {
+        console.log('🚫 Kafka not connected — skipping message send');
       }
-    } else {
-      console.log('🚫 Kafka not connected — skipping message send');
-    }
 
     res.status(201).json({ message: 'Job created successfully', job });
   } catch (err) {
