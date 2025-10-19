@@ -45,5 +45,21 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
+  backend:
+    build: .
+    container_name: jobapp_backend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://abhii123:abhiipass@postgres:5432/mydb?schema=public
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: supersecretkey
+      KAFKA_BROKER: kafka:29092
+    depends_on:
+      - postgres
+      - redis
+      - kafka
+
 volumes:
   postgres_data:
