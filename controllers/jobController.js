@@ -1,5 +1,5 @@
 const prisma = require('../db');
-
+const { producer } = require('../services/kafka');
 // Create job (protected)
 exports.createJob = async (req, res) => {
     const { title, description, location, salary } = req.body;
@@ -21,11 +21,17 @@ exports.createJob = async (req, res) => {
           userId,
         },
       });
-  
+      await producer.send({
+        topic: 'job_events',
+        messages: [
+          { value: JSON.stringify({ jobId: job.id, type: 'CREATED', userId }) },
+        ],
+      });
       res.status(201).json({ message: 'Job created successfully', job });
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
+
   };
   
 

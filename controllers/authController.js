@@ -17,7 +17,7 @@ exports.signup = async (req, res) => {
       });
   
       const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '1d' });
-  
+        
       res.status(201).json({ message: 'User created successfully', token });
     } catch (error) {
       res.status(500).json({ error: error.message });
