@@ -1,4 +1,3 @@
-// routes/jobRoutes.js
 const express = require('express');
 const router = express.Router();
 const { createJob, getAllJobs, getMyJobs, updateJob, deleteJob } = require('../controllers/jobController');
