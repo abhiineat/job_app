@@ -51,6 +51,7 @@ services:
     restart: always
     ports:
       - "3000:3000"
+      - "5555:5555"
     environment:
       DATABASE_URL: ${DATABASE_URL}
       REDIS_URL: ${REDIS_URL}
@@ -60,6 +61,6 @@ services:
       - postgres
       - redis
       - kafka
-
+      
 volumes:
   postgres_data:

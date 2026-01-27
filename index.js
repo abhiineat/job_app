@@ -1,4 +1,8 @@
+
 require("dotenv").config({ path: "./.env" });
+
+
+// require("dotenv").config({ path: "./.env" });
 const express = require('express');
 const prisma = require('./db');
 const app = express();
@@ -12,33 +16,31 @@ const startConsumer = require('./services/kafkaConsumer');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 app.use('/auth', authRoutes);
 app.use('/jobs', jobRoutes);
-
 app.get('/', (req, res) => {
     res.send('Welcome to the Prisma Express API');
 });
 
 const startServer = async () => {
   try {
-    // Only connect Kafka if broker is defined
     if (producer) {
       try {
         await producer.connect();
-        console.log('📤 Kafka Producer connected');
+        console.log(' Kafka Producer connected');
         await startConsumer();
-        console.log('📥 Kafka Consumer connected');
+        console.log(' Kafka Consumer connected');
       } catch (kafkaErr) {
-        console.warn('⚠️ Kafka not connected. Skipping Kafka setup.', kafkaErr.message);
+        console.warn('Kafka not connected. Skipping Kafka setup.', kafkaErr.message);
       }
     } else {
-      console.log('🚫 Kafka disabled for this environment');
+      console.log('Kafka disabled for this environment');
     }
 
-    // Start Express server
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   } catch (err) {
-    console.error('❌ Error starting server:', err);
+    console.error(' Error starting server:', err);
   }
 };
 
