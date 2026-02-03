@@ -1,10 +1,10 @@
 // services/kafka.js
 const { Kafka } = require('kafkajs');
-
+const isProd = process.env.NODE_ENV === 'production';
 let producer = null;
 let consumer = null;
 
-if (process.env.DISABLE_KAFKA === 'true') {
+if (isProd ||process.env.DISABLE_KAFKA === 'true') {
   console.log('⚠️ Kafka disabled for this environment');
 } else if (process.env.KAFKA_BROKER) {
   try {

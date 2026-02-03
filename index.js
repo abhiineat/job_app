@@ -1,18 +1,22 @@
-
 require("dotenv").config({ path: "./.env" });
-
 
 // require("dotenv").config({ path: "./.env" });
 const express = require('express');
 const prisma = require('./db');
 const app = express();
+const cors = require('cors');
 const PORT = process.env.PORT || 3000;
 const authRoutes = require('./routes/authRoutes');
 const jobRoutes = require('./routes/jobRoutes');
 
 const { producer } = require('./services/kafka');
 const startConsumer = require('./services/kafkaConsumer');
-
+app.use(cors({
+  origin: process.env.CLIENT_URL || 'http://localhost:3001',
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  credentials: true
+}));
+app.options('*', cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
