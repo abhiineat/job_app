@@ -1,48 +1,58 @@
 # JobApp Backend
 
-**JobApp** is a backend API for a Job & Internship platform built with **Node.js, Express, PostgreSQL, Prisma, Redis, Kafka, and Docker**.  
-It supports user authentication, job postings, real-time notifications, and caching for optimized performance.
+**JobApp Backend** is a production-ready backend API for a Job & Internship platform built with **Node.js, Express, PostgreSQL, Prisma, Redis, Kafka, and Docker**.
+
+The application is deployed on **AWS EC2**, uses **AWS RDS (PostgreSQL)** for persistence, and **Upstash Redis** for caching. Kafka is used for asynchronous event processing in development and is feature-flagged in production.
 
 ---
 
 ## 🛠️ Tech Stack
 
 - **Backend:** Node.js + Express
-- **Database:** PostgreSQL (Dockerized) + Prisma ORM
-- **Caching:** Redis (Dockerized)
-- **Message Queue:** Kafka + Zookeeper (Dockerized)
+- **Database:** PostgreSQL (AWS RDS) + Prisma ORM
+- **Caching:** Redis (Upstash – managed, TLS-enabled)
+- **Message Queue:** Kafka + Zookeeper (development only)
 - **Authentication:** JWT + bcrypt
 - **Containerization:** Docker & Docker Compose
+- **Cloud:** AWS EC2, AWS RDS
 
 ---
 
 ## 🚀 Features
 
-### 1. Users
-- Signup / login with JWT authentication
-- Passwords hashed using bcrypt
-- Profile management
+### 1. Authentication
+- User signup & login using JWT
+- Secure password hashing with bcrypt
+- Protected routes using middleware
 
-### 2. Jobs
-- Create, read, update, delete jobs
-- Search & filter jobs
-- User-specific job management
+### 2. Job Management
+- Create, read, update, delete job postings
+- Search and filter jobs
+- User-specific job ownership
 
-### 3. Real-time Notifications
-- Kafka producers/consumers handle async events
-- Example: job application notifications
+### 3. Caching (Redis)
+- Frequently accessed job listings cached in Redis
+- Reduced database load and improved response time
+- Managed Redis via Upstash with TLS
 
-### 4. Caching
-- Redis caches frequently accessed job listings
-- Reduces database load
+### 4. Event-driven Architecture (Kafka)
+- Kafka producers and consumers for async workflows
+- Example use case: job-related notifications
+- Kafka is disabled in production using environment flags
 
-### 5. Dockerized
-- All services (Postgres, Redis, Kafka, Zookeeper, Node.js API) run in containers
-- One `docker-compose.yml` to start the full stack
+### 5. Production Deployment
+- Dockerized Node.js backend
+- Deployed on AWS EC2
+- PostgreSQL hosted on AWS RDS
+- Redis hosted on Upstash
+- Secure networking using AWS Security Groups
 
+---
 
-## Live API
+## 🌍 Live API
 
-The backend is deployed on Railway. You can test the API endpoints here:
+The backend is deployed on **AWS EC2** and is publicly accessible.
 
-**Base URL:** [https://jobapp-production-ab57.up.railway.app](https://jobapp-production-ab57.up.railway.app)
+**Base URL**
+http://13.234.240.210:5000/
+
