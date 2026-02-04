@@ -26,6 +26,9 @@ app.use('/jobs', jobRoutes);
 app.get('/', (req, res) => {
     res.send('Welcome to the Prisma Express API');
 });
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
 
 const startServer = async () => {
   try {
